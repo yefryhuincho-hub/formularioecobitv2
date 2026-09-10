@@ -18,39 +18,105 @@ const API_URL =
 
 let currentApplication = null;
 
-
-/* =========================================================
-   ELEMENTOS DEL DOM
-   ========================================================= */
-
-const loadingState =
-  document.getElementById("loadingState");
-
-const errorState =
-  document.getElementById("errorState");
-
-const confirmationContent =
-  document.getElementById("confirmationContent");
-
-const successState =
-  document.getElementById("successState");
-
-const errorMessage =
-  document.getElementById("errorMessage");
+let loadingState = null;
+let errorState = null;
+let confirmationContent = null;
+let successState = null;
+let errorMessage = null;
 
 
 /* =========================================================
-   INICIAR PÁGINA
+   INICIAR PÁGINA DE FORMA SEGURA
    ========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
+if (document.readyState === "loading") {
 
-    initializeConfirmationPage();
+  document.addEventListener(
+    "DOMContentLoaded",
+    initializePage
+  );
+
+} else {
+
+  initializePage();
+
+}
+
+
+/* =========================================================
+   INICIALIZACIÓN GENERAL
+   ========================================================= */
+
+function initializePage() {
+
+  /* =======================================================
+     OBTENER ELEMENTOS DEL DOM
+     ======================================================= */
+
+  loadingState =
+    document.getElementById("loadingState");
+
+  errorState =
+    document.getElementById("errorState");
+
+  confirmationContent =
+    document.getElementById("confirmationContent");
+
+  successState =
+    document.getElementById("successState");
+
+  errorMessage =
+    document.getElementById("errorMessage");
+
+
+  /* =======================================================
+     OCULTAR ESTADOS INICIALES
+     ======================================================= */
+
+  if (errorState) {
+
+    hideElement(errorState);
 
   }
-);
+
+
+  if (confirmationContent) {
+
+    hideElement(confirmationContent);
+
+  }
+
+
+  if (successState) {
+
+    hideElement(successState);
+
+  }
+
+
+  if (loadingState) {
+
+    showElement(loadingState);
+
+  }
+
+
+  /* =======================================================
+     CONFIGURAR EVENTOS
+     ======================================================= */
+
+  initializeFileEvents();
+
+  initializeFormEvent();
+
+
+  /* =======================================================
+     CARGAR POSTULACIÓN
+     ======================================================= */
+
+  initializeConfirmationPage();
+
+}
 
 
 /* =========================================================
@@ -60,6 +126,11 @@ document.addEventListener(
 async function initializeConfirmationPage() {
 
   try {
+
+    console.log(
+      "Iniciando página de confirmación..."
+    );
+
 
     const urlParams =
       new URLSearchParams(
@@ -75,6 +146,16 @@ async function initializeConfirmationPage() {
         .toUpperCase();
 
 
+    console.log(
+      "APPLICATION ID recibido:",
+      applicationId
+    );
+
+
+    /* =====================================================
+       VALIDAR ID
+       ===================================================== */
+
     if (!applicationId) {
 
       showError(
@@ -86,20 +167,37 @@ async function initializeConfirmationPage() {
     }
 
 
+    /* =====================================================
+       CONSULTAR POSTULACIÓN
+       ===================================================== */
+
     const response =
       await fetchApplication(
         applicationId
       );
 
 
+    console.log(
+      "Respuesta recibida:",
+      response
+    );
+
+
+    /* =====================================================
+       VALIDAR RESPUESTA
+       ===================================================== */
+
     if (
+      !response ||
       !response.success ||
       !response.application
     ) {
 
       showError(
-        response.message ||
-        "No fue posible encontrar tu postulación."
+        response &&
+        response.message
+          ? response.message
+          : "No fue posible encontrar tu postulación."
       );
 
       return;
@@ -107,22 +205,49 @@ async function initializeConfirmationPage() {
     }
 
 
+    /* =====================================================
+       GUARDAR INFORMACIÓN
+       ===================================================== */
+
     currentApplication =
       response.application;
 
+
+    /* =====================================================
+       MOSTRAR DATOS
+       ===================================================== */
 
     populateApplicationData(
       currentApplication
     );
 
 
+    /* =====================================================
+       CAMBIAR ESTADOS VISUALES
+       ===================================================== */
+
     hideElement(
       loadingState
     );
 
 
+    hideElement(
+      errorState
+    );
+
+
+    hideElement(
+      successState
+    );
+
+
     showElement(
       confirmationContent
+    );
+
+
+    console.log(
+      "Información cargada correctamente."
     );
 
 
@@ -135,6 +260,7 @@ async function initializeConfirmationPage() {
 
 
     showError(
+      error.message ||
       "Ocurrió un error al cargar tu información. Intenta nuevamente."
     );
 
@@ -153,20 +279,35 @@ async function fetchApplication(applicationId) {
     `${API_URL}?action=postulacion&id=${encodeURIComponent(applicationId)}`;
 
 
+  console.log(
+    "Consultando:",
+    url
+  );
+
+
   const response =
-    await fetch(url);
+    await fetch(
+      url,
+      {
+        method: "GET"
+      }
+    );
 
 
   if (!response.ok) {
 
     throw new Error(
-      "No fue posible conectar con el servidor."
+      `No fue posible conectar con el servidor. Código: ${response.status}`
     );
 
   }
 
 
-  return await response.json();
+  const data =
+    await response.json();
+
+
+  return data;
 
 }
 
@@ -177,10 +318,23 @@ async function fetchApplication(applicationId) {
 
 function populateApplicationData(application) {
 
+  if (!application) {
+
+    throw new Error(
+      "No se recibió información de la postulación."
+    );
+
+  }
+
+
+  /* =======================================================
+     NOMBRE
+     ======================================================= */
+
   const participantName =
     application.nombres ||
     application.nombreCompleto ||
-    "";
+    "Participante";
 
 
   setText(
@@ -189,17 +343,29 @@ function populateApplicationData(application) {
   );
 
 
+  /* =======================================================
+     PROGRAMA
+     ======================================================= */
+
   setText(
     "programName",
     application.programa || "—"
   );
 
 
+  /* =======================================================
+     APPLICATION ID
+     ======================================================= */
+
   setText(
     "applicationId",
     application.applicationId || "—"
   );
 
+
+  /* =======================================================
+     BECA
+     ======================================================= */
 
   setText(
     "scholarshipValue",
@@ -209,6 +375,10 @@ function populateApplicationData(application) {
   );
 
 
+  /* =======================================================
+     VALOR ACADÉMICO
+     ======================================================= */
+
   setText(
     "academicValue",
     formatCurrency(
@@ -216,6 +386,10 @@ function populateApplicationData(application) {
     )
   );
 
+
+  /* =======================================================
+     DERECHOS ADMINISTRATIVOS
+     ======================================================= */
 
   setText(
     "administrativeValue",
@@ -225,6 +399,10 @@ function populateApplicationData(application) {
   );
 
 
+  /* =======================================================
+     TOTAL A PAGAR
+     ======================================================= */
+
   setText(
     "totalValue",
     formatCurrency(
@@ -233,21 +411,40 @@ function populateApplicationData(application) {
   );
 
 
+  /* =======================================================
+     LINK DE PAGO
+     ======================================================= */
+
   const paymentLink =
     document.getElementById(
       "paymentLink"
     );
 
 
-  if (
-    paymentLink &&
-    application.linkPago
-  ) {
+  if (paymentLink) {
 
-    paymentLink.href =
-      application.linkPago;
+    if (application.linkPago) {
+
+      paymentLink.href =
+        application.linkPago;
+
+
+      paymentLink.style.display =
+        "";
+
+    } else {
+
+      paymentLink.style.display =
+        "none";
+
+    }
 
   }
+
+
+  console.log(
+    "Datos mostrados correctamente."
+  );
 
 }
 
@@ -303,7 +500,10 @@ function formatScholarship(value) {
     }
 
 
-    if (number > 0 && number <= 1) {
+    if (
+      number > 0 &&
+      number <= 1
+    ) {
 
       return `Beca del ${number * 100} %`;
 
@@ -353,414 +553,521 @@ function formatCurrency(value) {
    EVENTOS DE ARCHIVOS
    ========================================================= */
 
-document
-  .getElementById("paymentReceipt")
-  .addEventListener(
-    "change",
-    function (event) {
+function initializeFileEvents() {
 
-      const file =
-        event.target.files[0];
+  const paymentReceipt =
+    document.getElementById(
+      "paymentReceipt"
+    );
 
 
-      const nameElement =
-        document.getElementById(
-          "paymentReceiptName"
-        );
+  if (paymentReceipt) {
+
+    paymentReceipt.addEventListener(
+      "change",
+      function (event) {
+
+        const file =
+          event.target.files[0];
 
 
-      if (file) {
-
-        nameElement.textContent =
-          file.name;
-
-      } else {
-
-        nameElement.textContent =
-          "Ningún archivo seleccionado";
-
-      }
-
-    }
-  );
+        const nameElement =
+          document.getElementById(
+            "paymentReceiptName"
+          );
 
 
-document
-  .getElementById("professionalPhoto")
-  .addEventListener(
-    "change",
-    function (event) {
+        if (!nameElement) {
 
-      const file =
-        event.target.files[0];
+          return;
+
+        }
 
 
-      const nameElement =
-        document.getElementById(
-          "professionalPhotoName"
-        );
+        if (file) {
 
+          nameElement.textContent =
+            file.name;
 
-      if (file) {
+        } else {
 
-        nameElement.textContent =
-          file.name;
+          nameElement.textContent =
+            "Ningún archivo seleccionado";
 
-      } else {
-
-        nameElement.textContent =
-          "";
+        }
 
       }
+    );
 
-    }
+  }
+
+
+  const professionalPhoto =
+    document.getElementById(
+      "professionalPhoto"
+    );
+
+
+  if (professionalPhoto) {
+
+    professionalPhoto.addEventListener(
+      "change",
+      function (event) {
+
+        const file =
+          event.target.files[0];
+
+
+        const nameElement =
+          document.getElementById(
+            "professionalPhotoName"
+          );
+
+
+        if (!nameElement) {
+
+          return;
+
+        }
+
+
+        if (file) {
+
+          nameElement.textContent =
+            file.name;
+
+        } else {
+
+          nameElement.textContent =
+            "Ningún archivo seleccionado";
+
+        }
+
+      }
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   EVENTO DEL FORMULARIO
+   ========================================================= */
+
+function initializeFormEvent() {
+
+  const confirmationForm =
+    document.getElementById(
+      "confirmationForm"
+    );
+
+
+  if (!confirmationForm) {
+
+    console.warn(
+      "No se encontró confirmationForm."
+    );
+
+    return;
+
+  }
+
+
+  confirmationForm.addEventListener(
+    "submit",
+    handleConfirmationSubmit
   );
+
+}
 
 
 /* =========================================================
    ENVÍO DEL FORMULARIO
    ========================================================= */
 
-document
-  .getElementById("confirmationForm")
-  .addEventListener(
-    "submit",
-    async function (event) {
+async function handleConfirmationSubmit(event) {
 
-      event.preventDefault();
+  event.preventDefault();
 
 
-      try {
+  try {
 
-        if (!currentApplication) {
+    /* =====================================================
+       VALIDAR POSTULACIÓN
+       ===================================================== */
 
-          throw new Error(
-            "No se encontró información de la postulación."
-          );
+    if (!currentApplication) {
 
-        }
-
-
-        const confirmationCheckbox =
-          document.getElementById(
-            "participationConfirmation"
-          );
-
-
-        const paymentReceipt =
-          document.getElementById(
-            "paymentReceipt"
-          ).files[0];
-
-
-        const professionalPhoto =
-          document.getElementById(
-            "professionalPhoto"
-          ).files[0];
-
-
-        const biography =
-          document.getElementById(
-            "biography"
-          ).value
-          .trim();
-
-
-        /* =================================================
-           VALIDACIONES
-           ================================================= */
-
-        if (!confirmationCheckbox.checked) {
-
-          alert(
-            "Debes confirmar tu participación."
-          );
-
-          return;
-
-        }
-
-
-        if (!paymentReceipt) {
-
-          alert(
-            "Debes adjuntar el comprobante de pago."
-          );
-
-          return;
-
-        }
-
-
-        if (!professionalPhoto) {
-
-          alert(
-            "Debes adjuntar tu foto profesional."
-          );
-
-          return;
-
-        }
-
-
-        if (!biography) {
-
-          alert(
-            "Debes completar tu reseña biográfica."
-          );
-
-          return;
-
-        }
-
-
-        /* =================================================
-           VALIDAR TAMAÑO
-           ================================================= */
-
-        const maxFileSize =
-          5 * 1024 * 1024;
-
-
-        if (paymentReceipt.size > maxFileSize) {
-
-          alert(
-            "El comprobante no debe superar los 5 MB."
-          );
-
-          return;
-
-        }
-
-
-        if (professionalPhoto.size > maxFileSize) {
-
-          alert(
-            "La foto no debe superar los 5 MB."
-          );
-
-          return;
-
-        }
-
-
-        /* =================================================
-           ESTADO DEL BOTÓN
-           ================================================= */
-
-        const submitButton =
-          document.getElementById(
-            "submitConfirmation"
-          );
-
-
-        submitButton.disabled =
-          true;
-
-
-        submitButton.textContent =
-          "Enviando información...";
-
-
-        /* =================================================
-           CONVERTIR COMPROBANTE
-           ================================================= */
-
-        const receiptFile =
-          await convertFileToBase64(
-            paymentReceipt
-          );
-
-
-        /* =================================================
-           CONVERTIR FOTO
-           ================================================= */
-
-        const photoFile =
-          await convertFileToBase64(
-            professionalPhoto
-          );
-
-
-        /* =================================================
-           PREPARAR DATOS
-           ================================================= */
-
-        const payload = {
-
-          /* Acción */
-
-          action:
-            "confirmation",
-
-
-          /* Identificación */
-
-          applicationId:
-            currentApplication.applicationId,
-
-
-          email:
-            currentApplication.email || "",
-
-
-          /* Confirmación */
-
-          confirmation:
-            "CONFIRMADA",
-
-
-          /* Reseña */
-
-          biography:
-            biography,
-
-
-          /* ===============================================
-             FOTO PROFESIONAL
-             =============================================== */
-
-          photoBase64:
-            photoFile.base64,
-
-
-          photoFileName:
-            photoFile.name,
-
-
-          photoMimeType:
-            photoFile.mimeType,
-
-
-          /* ===============================================
-             COMPROBANTE DE PAGO
-             =============================================== */
-
-          receiptBase64:
-            receiptFile.base64,
-
-
-          receiptFileName:
-            receiptFile.name,
-
-
-          receiptMimeType:
-            receiptFile.mimeType
-
-        };
-
-
-        /* =================================================
-           ENVIAR AL BACKEND
-           ================================================= */
-
-        const response =
-          await fetch(
-            API_URL,
-            {
-
-              method:
-                "POST",
-
-              headers: {
-
-                "Content-Type":
-                  "text/plain;charset=utf-8"
-
-              },
-
-              body:
-                JSON.stringify(
-                  payload
-                )
-
-            }
-          );
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            "No fue posible enviar la información."
-          );
-
-        }
-
-
-        const result =
-          await response.json();
-
-
-        if (!result.success) {
-
-          throw new Error(
-            result.message ||
-            "No fue posible registrar la información."
-        );
-
-        }
-
-
-        /* =================================================
-           MOSTRAR ÉXITO
-           ================================================= */
-
-        hideElement(
-          confirmationContent
-        );
-
-
-        showElement(
-          successState
-        );
-
-
-        window.scrollTo({
-
-          top:
-            0,
-
-          behavior:
-            "smooth"
-
-        });
-
-
-      } catch (error) {
-
-        console.error(
-          "Error al enviar confirmación:",
-          error
-        );
-
-
-        alert(
-          error.message ||
-          "Ocurrió un error al enviar la información."
-        );
-
-
-        const submitButton =
-          document.getElementById(
-            "submitConfirmation"
-          );
-
-
-        if (submitButton) {
-
-          submitButton.disabled =
-            false;
-
-
-          submitButton.textContent =
-            "Confirmar y enviar información";
-
-        }
-
-      }
+      throw new Error(
+        "No se encontró información de la postulación."
+      );
 
     }
-  );
+
+
+    /* =====================================================
+       OBTENER ELEMENTOS
+       ===================================================== */
+
+    const confirmationCheckbox =
+      document.getElementById(
+        "participationConfirmation"
+      );
+
+
+    const paymentReceiptInput =
+      document.getElementById(
+        "paymentReceipt"
+      );
+
+
+    const professionalPhotoInput =
+      document.getElementById(
+        "professionalPhoto"
+      );
+
+
+    const biographyInput =
+      document.getElementById(
+        "biography"
+      );
+
+
+    const paymentReceipt =
+      paymentReceiptInput
+        ? paymentReceiptInput.files[0]
+        : null;
+
+
+    const professionalPhoto =
+      professionalPhotoInput
+        ? professionalPhotoInput.files[0]
+        : null;
+
+
+    const biography =
+      biographyInput
+        ? biographyInput.value.trim()
+        : "";
+
+
+    /* =====================================================
+       VALIDACIONES
+       ===================================================== */
+
+    if (
+      !confirmationCheckbox ||
+      !confirmationCheckbox.checked
+    ) {
+
+      alert(
+        "Debes confirmar tu participación."
+      );
+
+      return;
+
+    }
+
+
+    if (!paymentReceipt) {
+
+      alert(
+        "Debes adjuntar el comprobante de pago."
+      );
+
+      return;
+
+    }
+
+
+    if (!professionalPhoto) {
+
+      alert(
+        "Debes adjuntar tu foto profesional."
+      );
+
+      return;
+
+    }
+
+
+    if (!biography) {
+
+      alert(
+        "Debes completar tu reseña biográfica."
+      );
+
+      return;
+
+    }
+
+
+    /* =====================================================
+       VALIDAR TAMAÑO
+       ===================================================== */
+
+    const maxFileSize =
+      5 * 1024 * 1024;
+
+
+    if (
+      paymentReceipt.size >
+      maxFileSize
+    ) {
+
+      alert(
+        "El comprobante no debe superar los 5 MB."
+      );
+
+      return;
+
+    }
+
+
+    if (
+      professionalPhoto.size >
+      maxFileSize
+    ) {
+
+      alert(
+        "La foto no debe superar los 5 MB."
+      );
+
+      return;
+
+    }
+
+
+    /* =====================================================
+       BOTÓN
+       ===================================================== */
+
+    const submitButton =
+      document.getElementById(
+        "submitConfirmation"
+      );
+
+
+    if (submitButton) {
+
+      submitButton.disabled =
+        true;
+
+
+      submitButton.textContent =
+        "Enviando información...";
+
+    }
+
+
+    /* =====================================================
+       CONVERTIR COMPROBANTE
+       ===================================================== */
+
+    const receiptFile =
+      await convertFileToBase64(
+        paymentReceipt
+      );
+
+
+    /* =====================================================
+       CONVERTIR FOTO
+       ===================================================== */
+
+    const photoFile =
+      await convertFileToBase64(
+        professionalPhoto
+      );
+
+
+    /* =====================================================
+       PREPARAR PAYLOAD
+       ===================================================== */
+
+    const payload = {
+
+      action:
+        "confirmation",
+
+
+      applicationId:
+        currentApplication.applicationId,
+
+
+      email:
+        currentApplication.email || "",
+
+
+      confirmation:
+        "CONFIRMADA",
+
+
+      biography:
+        biography,
+
+
+      /* FOTO */
+
+      photoBase64:
+        photoFile.base64,
+
+
+      photoFileName:
+        photoFile.name,
+
+
+      photoMimeType:
+        photoFile.mimeType,
+
+
+      /* COMPROBANTE */
+
+      receiptBase64:
+        receiptFile.base64,
+
+
+      receiptFileName:
+        receiptFile.name,
+
+
+      receiptMimeType:
+        receiptFile.mimeType
+
+    };
+
+
+    console.log(
+      "Enviando confirmación..."
+    );
+
+
+    /* =====================================================
+       ENVIAR AL BACKEND
+       ===================================================== */
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            "Content-Type":
+              "text/plain;charset=utf-8"
+
+          },
+
+          body:
+            JSON.stringify(
+              payload
+            )
+
+        }
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        `No fue posible enviar la información. Código: ${response.status}`
+      );
+
+    }
+
+
+    const result =
+      await response.json();
+
+
+    console.log(
+      "Respuesta de confirmación:",
+      result
+    );
+
+
+    if (!result.success) {
+
+      throw new Error(
+        result.message ||
+        "No fue posible registrar la información."
+      );
+
+    }
+
+
+    /* =====================================================
+       MOSTRAR ÉXITO
+       ===================================================== */
+
+    hideElement(
+      confirmationContent
+    );
+
+
+    hideElement(
+      loadingState
+    );
+
+
+    hideElement(
+      errorState
+    );
+
+
+    showElement(
+      successState
+    );
+
+
+    window.scrollTo({
+
+      top:
+        0,
+
+      behavior:
+        "smooth"
+
+    });
+
+
+  } catch (error) {
+
+    console.error(
+      "Error al enviar confirmación:",
+      error
+    );
+
+
+    alert(
+      error.message ||
+      "Ocurrió un error al enviar la información."
+    );
+
+
+    const submitButton =
+      document.getElementById(
+        "submitConfirmation"
+      );
+
+
+    if (submitButton) {
+
+      submitButton.disabled =
+        false;
+
+
+      submitButton.textContent =
+        "Confirmar y enviar información";
+
+    }
+
+  }
+
+}
 
 
 /* =========================================================
@@ -779,6 +1086,17 @@ function convertFileToBase64(file) {
       reader.onload =
         function () {
 
+          const result =
+            String(
+              reader.result || ""
+            );
+
+
+          /*
+           * Enviamos el Data URL completo.
+           * Apps Script podrá decodificarlo.
+           */
+
           resolve({
 
             name:
@@ -789,7 +1107,7 @@ function convertFileToBase64(file) {
               "application/octet-stream",
 
             base64:
-              reader.result
+              result
 
           });
 
@@ -833,6 +1151,12 @@ function setText(id, value) {
     element.textContent =
       value;
 
+  } else {
+
+    console.warn(
+      `No se encontró el elemento: ${id}`
+    );
+
   }
 
 }
@@ -870,6 +1194,12 @@ function showElement(element) {
 
 function showError(message) {
 
+  console.error(
+    "Error mostrado:",
+    message
+  );
+
+
   hideElement(
     loadingState
   );
@@ -877,6 +1207,11 @@ function showError(message) {
 
   hideElement(
     confirmationContent
+  );
+
+
+  hideElement(
+    successState
   );
 
 
