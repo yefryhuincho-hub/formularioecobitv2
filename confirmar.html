@@ -3,6 +3,10 @@
 
 <head>
 
+  <!-- =====================================================
+       CONFIGURACIÓN BÁSICA
+       ===================================================== -->
+
   <meta charset="UTF-8">
 
   <meta
@@ -10,16 +14,19 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>
-    Confirmación de participación | EcoBit Excellence
-  </title>
-
   <meta
     name="description"
-    content="Confirma tu participación y completa tu proceso de inscripción en EcoBit Excellence."
+    content="Confirmación de participación e inscripción en EcoBit Excellence."
   >
 
-  <!-- Fuente -->
+  <title>
+    Confirmación de inscripción | EcoBit Excellence
+  </title>
+
+
+  <!-- =====================================================
+       TIPOGRAFÍA
+       ===================================================== -->
 
   <link
     rel="preconnect"
@@ -33,22 +40,18 @@
   >
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   >
 
-  <!-- Estilos principales -->
+
+  <!-- =====================================================
+       CSS
+       ===================================================== -->
 
   <link
     rel="stylesheet"
-    href="styles.css"
-  >
-
-  <!-- Estilos específicos -->
-
-  <link
-    rel="stylesheet"
-    href="confirmar.css"
+    href="css/confirmar.css"
   >
 
 </head>
@@ -65,25 +68,27 @@
 
 
     <!-- ===================================================
-         ENCABEZADO
+         HEADER
          =================================================== -->
 
     <header class="confirmation-header">
 
       <a
         href="https://www.ecobit.eco"
-        class="confirmation-logo"
-        aria-label="EcoBit"
+        class="brand"
+        aria-label="EcoBit Excellence"
       >
 
         <img
-          src="logo.png"
+          src="assets/logo.png"
           alt="EcoBit Excellence"
+          class="brand-logo"
         >
 
       </a>
 
     </header>
+
 
 
     <!-- ===================================================
@@ -92,14 +97,14 @@
 
     <section
       id="loadingState"
-      class="confirmation-loading"
+      class="state-container loading-state"
     >
 
-      <div class="loading-spinner"></div>
+      <div class="loader"></div>
 
-      <h2>
+      <h1>
         Estamos preparando tu información
-      </h2>
+      </h1>
 
       <p>
         Un momento, por favor...
@@ -108,16 +113,17 @@
     </section>
 
 
+
     <!-- ===================================================
-         ERROR
+         ESTADO DE ERROR
          =================================================== -->
 
     <section
       id="errorState"
-      class="confirmation-error hidden"
+      class="state-container error-state hidden"
     >
 
-      <div class="confirmation-icon">
+      <div class="state-icon">
         !
       </div>
 
@@ -131,12 +137,13 @@
 
       <a
         href="index.html"
-        class="primary-button"
+        class="secondary-button"
       >
         Ir a la página principal
       </a>
 
     </section>
+
 
 
     <!-- ===================================================
@@ -149,19 +156,19 @@
     >
 
 
-      <!-- =================================================
-           BIENVENIDA
-           ================================================= -->
+      <!-- ===============================================
+           INTRODUCCIÓN
+           =============================================== -->
 
-      <div class="confirmation-welcome">
+      <div class="confirmation-intro">
 
-        <span class="section-label">
+        <span class="eyebrow">
           ECOBIT EXCELLENCE
         </span>
 
         <h1>
           ¡Felicitaciones,
-          <span id="participantName"></span>!
+          <span id="participantName">participante</span>!
         </h1>
 
         <p>
@@ -173,17 +180,25 @@
       </div>
 
 
-      <!-- =================================================
-           RESUMEN DE POSTULACIÓN
-           ================================================= -->
 
-      <div class="application-summary">
+      <!-- ===============================================
+           CONTENEDOR DE DOS COLUMNAS
+           =============================================== -->
 
-        <div class="summary-header">
+      <div class="confirmation-layout">
 
-          <div>
 
-            <span class="summary-label">
+        <!-- =============================================
+             COLUMNA IZQUIERDA
+             RESUMEN
+             ============================================= -->
+
+        <aside class="application-summary">
+
+
+          <div class="summary-header">
+
+            <span class="eyebrow">
               TU PROCESO DE INSCRIPCIÓN
             </span>
 
@@ -193,157 +208,95 @@
 
           </div>
 
-          <div class="application-id">
 
-            <span>
-              ID DE POSTULACIÓN
-            </span>
+          <!-- ===========================================
+               INFORMACIÓN DE POSTULACIÓN
+               =========================================== -->
 
-            <strong id="applicationId">
-              —
-            </strong>
-
-          </div>
-
-        </div>
+          <div class="summary-card">
 
 
-        <div class="summary-grid">
-
-
-          <div class="summary-item">
-
-            <span>
-              Beca asignada
-            </span>
-
-            <strong id="scholarshipValue">
-              —
-            </strong>
-
-          </div>
-
-
-          <div class="summary-item">
-
-            <span>
-              Valor académico
-            </span>
-
-            <strong id="academicValue">
-              —
-            </strong>
-
-          </div>
-
-
-          <div class="summary-item">
-
-            <span>
-              Derechos administrativos
-            </span>
-
-            <strong id="administrativeValue">
-              —
-            </strong>
-
-          </div>
-
-
-          <div class="summary-item summary-total">
-
-            <span>
-              Total a pagar
-            </span>
-
-            <strong id="totalValue">
-              —
-            </strong>
-
-          </div>
-
-
-        </div>
-
-      </div>
-
-
-      <!-- =================================================
-           FORMULARIO
-           ================================================= -->
-
-      <form
-        id="confirmationForm"
-        class="confirmation-form"
-      >
-
-
-        <!-- ===============================================
-             PASO 1
-             =============================================== -->
-
-        <div class="form-section">
-
-          <div class="form-section-number">
-            01
-          </div>
-
-          <div class="form-section-content">
-
-            <h2>
-              Confirma tu participación
-            </h2>
-
-            <p>
-              Confirma que deseas participar en el programa
-              para continuar con tu proceso de inscripción.
-            </p>
-
-
-            <label
-              class="confirmation-option"
-            >
-
-              <input
-                type="checkbox"
-                id="participationConfirmation"
-                required
-              >
-
-              <span class="custom-checkbox"></span>
+            <div class="summary-row">
 
               <span>
-                Confirmo mi participación y deseo continuar
-                con mi proceso de inscripción.
+                ID DE POSTULACIÓN
               </span>
 
-            </label>
+              <strong id="applicationId">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+              <span>
+                Beca asignada
+              </span>
+
+              <strong id="scholarshipValue">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+              <span>
+                Valor académico
+              </span>
+
+              <strong id="academicValue">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+              <span>
+                Derechos administrativos
+              </span>
+
+              <strong id="administrativeValue">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <div class="summary-total">
+
+              <span>
+                Total a pagar
+              </span>
+
+              <strong id="totalValue">
+                —
+              </strong>
+
+            </div>
+
 
           </div>
 
-        </div>
 
 
-        <!-- ===============================================
-             PASO 2
-             =============================================== -->
+          <!-- ===========================================
+               BOTÓN DE PAGO
+               =========================================== -->
 
-        <div class="form-section">
-
-          <div class="form-section-number">
-            02
-          </div>
-
-          <div class="form-section-content">
-
-            <h2>
-              Realiza el pago correspondiente
-            </h2>
+          <div class="payment-section">
 
             <p>
-              Utiliza el enlace de pago asignado a tu
-              postulación. Cuando completes el pago,
-              regresa a esta página para cargar tu comprobante.
+              Para continuar con tu inscripción, realiza el pago
+              correspondiente a través del enlace seguro.
             </p>
 
 
@@ -355,254 +308,398 @@
               class="payment-button"
             >
 
-              Ir a realizar el pago
+              Realizar pago
+
+              <span>
+                →
+              </span>
 
             </a>
 
 
-            <p class="payment-note">
-
-              El enlace se abrirá en una nueva ventana para
-              que puedas regresar y continuar con este proceso.
-
-            </p>
+            <small>
+              Después de realizar el pago, regresa a esta página
+              para adjuntar tu comprobante.
+            </small>
 
           </div>
 
-        </div>
+
+        </aside>
 
 
-        <!-- ===============================================
-             PASO 3
-             =============================================== -->
 
-        <div class="form-section">
+        <!-- =============================================
+             COLUMNA DERECHA
+             FORMULARIO
+             ============================================= -->
 
-          <div class="form-section-number">
-            03
-          </div>
+        <section class="confirmation-form-container">
 
-          <div class="form-section-content">
+
+          <div class="form-header">
+
+            <span class="eyebrow">
+              CONFIRMACIÓN DE PARTICIPACIÓN
+            </span>
 
             <h2>
-              Sube tu comprobante de pago
+              Completa tu inscripción
             </h2>
 
             <p>
-              Adjunta una imagen o documento que permita
-              validar tu pago.
+              Confirma tu participación y proporciona la
+              información necesaria para completar tu registro.
             </p>
 
+          </div>
 
-            <div class="file-upload">
 
-              <input
-                type="file"
-                id="paymentReceipt"
-                accept="image/*,.pdf"
-                required
-              >
+
+          <!-- ===========================================
+               FORMULARIO
+               =========================================== -->
+
+          <form
+            id="confirmationForm"
+            class="confirmation-form"
+          >
+
+
+            <!-- =========================================
+                 CONFIRMACIÓN
+                 ========================================= -->
+
+            <div class="form-section">
+
+              <h3>
+                01. Confirma tu participación
+              </h3>
+
+
+              <label class="checkbox-container">
+
+                <input
+                  type="checkbox"
+                  id="participationConfirmation"
+                  required
+                >
+
+                <span class="checkbox-text">
+
+                  Confirmo mi participación en el programa
+                  seleccionado y acepto continuar con el proceso
+                  de inscripción.
+
+                </span>
+
+              </label>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 COMPROBANTE
+                 ========================================= -->
+
+            <div class="form-section">
+
+              <h3>
+                02. Adjunta tu comprobante de pago
+              </h3>
+
+              <p class="field-description">
+
+                Sube una imagen o documento que permita verificar
+                tu pago.
+
+              </p>
+
 
               <label
                 for="paymentReceipt"
-                class="file-upload-label"
+                class="upload-area"
               >
 
-                <span class="file-upload-title">
-                  Seleccionar comprobante
-                </span>
-
-                <span
-                  id="paymentReceiptName"
-                  class="file-upload-name"
+                <input
+                  type="file"
+                  id="paymentReceipt"
+                  name="paymentReceipt"
+                  accept=".jpg,.jpeg,.png,.pdf"
+                  hidden
+                  required
                 >
-                  Ningún archivo seleccionado
-                </span>
+
+
+                <div class="upload-icon">
+                  ↑
+                </div>
+
+
+                <div class="upload-text">
+
+                  <strong>
+                    Seleccionar comprobante
+                  </strong>
+
+                  <span>
+                    JPG, PNG o PDF · Máximo 5 MB
+                  </span>
+
+                </div>
 
               </label>
 
+
+              <div
+                id="paymentReceiptName"
+                class="selected-file"
+              >
+                Ningún archivo seleccionado
+              </div>
+
+
             </div>
 
-          </div>
-
-        </div>
 
 
-        <!-- ===============================================
-             PASO 4
-             =============================================== -->
+            <!-- =========================================
+                 FOTO PROFESIONAL
+                 ========================================= -->
 
-        <div class="form-section">
+            <div class="form-section">
 
-          <div class="form-section-number">
-            04
-          </div>
+              <h3>
+                03. Tu foto profesional
+              </h3>
 
-          <div class="form-section-content">
+              <p class="field-description">
 
-            <h2>
-              Tu perfil profesional
-            </h2>
+                Esta fotografía podrá ser utilizada para fines
+                académicos, institucionales y de presentación
+                dentro de la comunidad EcoBit Excellence.
 
-            <p>
-              Esta información podrá ser utilizada para tu
-              presentación dentro de la comunidad y actividades
-              académicas del programa.
-            </p>
+              </p>
 
-
-            <div class="form-field">
 
               <label
                 for="professionalPhoto"
+                class="upload-area"
               >
-                Foto profesional
+
+                <input
+                  type="file"
+                  id="professionalPhoto"
+                  name="professionalPhoto"
+                  accept=".jpg,.jpeg,.png"
+                  hidden
+                  required
+                >
+
+
+                <div class="upload-icon">
+                  ↑
+                </div>
+
+
+                <div class="upload-text">
+
+                  <strong>
+                    Seleccionar fotografía
+                  </strong>
+
+                  <span>
+                    JPG o PNG · Máximo 5 MB
+                  </span>
+
+                </div>
+
               </label>
 
-              <input
-                type="file"
-                id="professionalPhoto"
-                accept="image/*"
-                required
-              >
 
-              <small>
-                Recomendado: fotografía clara, reciente y de
-                buena calidad.
-              </small>
-
-              <span
+              <div
                 id="professionalPhotoName"
-                class="selected-file-name"
-              ></span>
+                class="selected-file"
+              >
+                Ningún archivo seleccionado
+              </div>
+
 
             </div>
 
 
-            <div class="form-field">
 
-              <label
-                for="biography"
-              >
-                Reseña biográfica
-              </label>
+            <!-- =========================================
+                 RESEÑA BIOGRÁFICA
+                 ========================================= -->
+
+            <div class="form-section">
+
+              <h3>
+                04. Reseña profesional
+              </h3>
+
+              <p class="field-description">
+
+                Cuéntanos brevemente sobre tu experiencia,
+                profesión, organización o área de especialización.
+
+              </p>
+
 
               <textarea
                 id="biography"
+                name="biography"
                 rows="6"
+                maxlength="1000"
+                placeholder="Escribe una breve reseña profesional sobre ti..."
                 required
-                placeholder="Cuéntanos brevemente sobre tu trayectoria profesional, experiencia, intereses y áreas de trabajo."
               ></textarea>
 
-              <small>
-                Esta reseña podrá ser utilizada para tu
-                presentación profesional.
-              </small>
+
+              <div class="field-note">
+
+                Máximo 1,000 caracteres.
+
+              </div>
 
             </div>
 
-          </div>
-
-        </div>
 
 
-        <!-- ===============================================
-             ENVÍO
-             =============================================== -->
+            <!-- =========================================
+                 INFORMACIÓN FINAL
+                 ========================================= -->
 
-        <div class="form-submit-container">
+            <div class="form-notice">
 
-          <button
-            type="submit"
-            id="submitConfirmation"
-            class="submit-confirmation-button"
-          >
+              <strong>
+                Importante:
+              </strong>
 
-            Confirmar y enviar información
+              Tu inscripción será revisada por el equipo de
+              EcoBit Excellence. La validación del pago y de la
+              información proporcionada permitirá completar tu
+              proceso de inscripción.
 
-          </button>
-
-          <p class="privacy-note">
-
-            Tu información será utilizada únicamente para la
-            gestión de tu proceso de inscripción y participación.
-
-          </p>
-
-        </div>
+            </div>
 
 
-      </form>
+
+            <!-- =========================================
+                 BOTÓN
+                 ========================================= -->
+
+            <button
+              type="submit"
+              id="submitConfirmation"
+              class="submit-button"
+            >
+
+              Confirmar y enviar información
+
+              <span>
+                →
+              </span>
+
+            </button>
+
+
+          </form>
+
+
+        </section>
+
+
+      </div>
 
 
     </section>
 
 
+
     <!-- ===================================================
-         ÉXITO
+         ESTADO DE ÉXITO
          =================================================== -->
 
     <section
       id="successState"
-      class="confirmation-success hidden"
+      class="state-container success-state hidden"
     >
 
       <div class="success-icon">
         ✓
       </div>
 
-      <span class="section-label">
-        INFORMACIÓN RECIBIDA
+
+      <span class="eyebrow">
+        INFORMACIÓN ENVIADA
       </span>
 
+
       <h1>
-        Tu información fue enviada correctamente
+        ¡Tu información fue registrada correctamente!
       </h1>
 
+
       <p>
-        Hemos recibido tu confirmación y documentación.
-        Nuestro equipo realizará la validación correspondiente
-        y te informaremos sobre los siguientes pasos.
+        Hemos recibido la confirmación de tu participación y la
+        documentación proporcionada. Nuestro equipo revisará la
+        información para continuar con tu proceso de inscripción.
       </p>
 
+
+      <div class="success-card">
+
+        <strong>
+          ¿Qué sigue ahora?
+        </strong>
+
+        <p>
+          Recibirás las siguientes indicaciones y novedades a través
+          de los canales oficiales de EcoBit Excellence.
+        </p>
+
+      </div>
+
+
       <a
-        href="https://chat.whatsapp.com/CbS6ZKrlASS0Yu7sxiPpBR"
+        href="https://chat.whatsapp.com/BKxMxBVq8MGIRpz6i7xURI"
         target="_blank"
         rel="noopener noreferrer"
-        class="primary-button"
+        class="whatsapp-button"
       >
 
         Unirme a la comunidad de WhatsApp
 
+        <span>
+          →
+        </span>
+
       </a>
+
+
+      <a
+        href="https://www.ecobit.eco"
+        class="back-home"
+      >
+        Volver a EcoBit
+      </a>
+
 
     </section>
 
 
-    <!-- ===================================================
-         FOOTER
-         =================================================== -->
-
-    <footer class="confirmation-footer">
-
-      <p>
-        © 2026 EcoBit Excellence.
-        Todos los derechos reservados.
-      </p>
-
-    </footer>
-
-
   </main>
+
 
 
   <!-- =====================================================
        JAVASCRIPT
        ===================================================== -->
 
-  <script
-    src="confirmacion.js"
-  ></script>
+  <script src="js/confirmar.js"></script>
 
 
 </body>
