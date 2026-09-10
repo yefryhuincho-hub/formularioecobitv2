@@ -14,7 +14,7 @@
 const CONFIG = {
 
   API_URL:
-    "https://script.google.com/macros/s/AKfycbzvJGoOIN5YePzN2uwRLa39qJEDFLQY3F3VpEPM9wCaHbwEZTL0luix4x1xHmnHO3I/exec"
+    "/api/ecobit"
 
 };
 
