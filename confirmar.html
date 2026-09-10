@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Confirmación de participación e inscripción en EcoBit Excellence."
+  >
+
+  <title>
+    Confirmación de inscripción | EcoBit Excellence
+  </title>
+
+
+  <!-- TIPOGRAFÍA -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="css/confirmar.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <main class="confirmation-page">
+
+
+    <!-- ===================================================
+         HEADER
+         =================================================== -->
+
+    <header class="confirmation-header">
+
+      <a
+        href="https://www.ecobit.eco"
+        class="brand"
+        aria-label="EcoBit Excellence"
+      >
+
+        <img
+          src="assets/logo.png"
+          alt="EcoBit Excellence"
+          class="brand-logo"
+        >
+
+      </a>
+
+    </header>
+
+
+
+    <!-- ===================================================
+         ESTADO DE CARGA
+         =================================================== -->
+
+    <section
+      id="loadingState"
+      class="state-container loading-state"
+    >
+
+      <div class="loader"></div>
+
+      <h1>
+        Estamos preparando tu información
+      </h1>
+
+      <p>
+        Un momento, por favor...
+      </p>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         ESTADO DE ERROR
+         =================================================== -->
+
+    <section
+      id="errorState"
+      class="state-container error-state hidden"
+    >
+
+      <div class="state-icon">
+        !
+      </div>
+
+      <span class="eyebrow">
+        ENLACE NO DISPONIBLE
+      </span>
+
+      <h1>
+        No pudimos encontrar tu postulación
+      </h1>
+
+      <p id="errorMessage">
+        Verifica que estés utilizando el enlace correcto.
+      </p>
+
+      <a
+        href="index.html"
+        class="secondary-button"
+      >
+        Ir a la página principal
+      </a>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         CONTENIDO PRINCIPAL
+         =================================================== -->
+
+    <section
+      id="confirmationContent"
+      class="confirmation-content hidden"
+    >
+
+
+      <!-- =================================================
+           INTRODUCCIÓN
+           ================================================= -->
+
+      <section class="confirmation-intro">
+
+        <span class="eyebrow">
+          ECOBIT EXCELLENCE
+        </span>
+
+        <h1>
+          ¡Felicitaciones,
+          <span id="participantName">participante</span>!
+        </h1>
+
+        <p>
+          Has sido seleccionado para continuar con tu proceso
+          de inscripción. Completa los siguientes pasos para
+          formalizar tu participación en EcoBit Excellence.
+        </p>
+
+      </section>
+
+
+
+      <!-- =================================================
+           LAYOUT PRINCIPAL
+           ================================================= -->
+
+      <div class="confirmation-layout">
+
+
+        <!-- ===============================================
+             COLUMNA IZQUIERDA
+             RESUMEN
+             =============================================== -->
+
+        <aside class="application-summary">
+
+
+          <!-- PROGRAMA -->
+
+          <div class="program-card">
+
+            <span class="card-label">
+              TU PROGRAMA
+            </span>
+
+            <h2 id="programName">
+              Cargando programa...
+            </h2>
+
+            <p>
+              EcoBit Excellence es una experiencia internacional
+              de formación, innovación y acción climática.
+            </p>
+
+          </div>
+
+
+
+          <!-- INFORMACIÓN -->
+
+          <div class="summary-card">
+
+            <h3>
+              Resumen de tu postulación
+            </h3>
+
+
+            <div class="summary-row">
+
+              <span>
+                ID DE POSTULACIÓN
+              </span>
+
+              <strong id="applicationId">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+              <span>
+                Beca asignada
+              </span>
+
+              <strong
+                id="scholarshipValue"
+                class="scholarship-badge"
+              >
+                —
+              </strong>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- INVERSIÓN -->
+
+          <div class="payment-summary">
+
+            <div class="payment-summary-header">
+
+              <span>
+                INVERSIÓN DEL PROGRAMA
+              </span>
+
+              <h3>
+                Resumen económico
+              </h3>
+
+            </div>
+
+
+            <div class="payment-row">
+
+              <span>
+                Valor académico
+              </span>
+
+              <strong id="academicValue">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="payment-row">
+
+              <span>
+                Derechos administrativos
+              </span>
+
+              <strong id="administrativeValue">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="payment-total">
+
+              <span>
+                TOTAL A PAGAR
+              </span>
+
+              <strong id="totalValue">
+                —
+              </strong>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- PAGO -->
+
+          <div class="payment-action">
+
+            <div class="payment-action-icon">
+              $
+            </div>
+
+            <div>
+
+              <h3>
+                Realiza tu pago
+              </h3>
+
+              <p>
+                Completa el pago correspondiente antes de
+                continuar con el envío de tu información.
+              </p>
+
+            </div>
+
+
+            <a
+              id="paymentLink"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="payment-button"
+            >
+              REALIZAR PAGO
+              <span>→</span>
+            </a>
+
+          </div>
+
+
+        </aside>
+
+
+
+        <!-- ===============================================
+             COLUMNA DERECHA
+             FORMULARIO
+             =============================================== -->
+
+        <section class="form-container">
+
+
+          <div class="form-header">
+
+            <span class="eyebrow">
+              PROCESO DE INSCRIPCIÓN
+            </span>
+
+            <h2>
+              Completa tu inscripción
+            </h2>
+
+            <p>
+              Sigue los pasos a continuación para confirmar tu
+              participación y enviar la documentación requerida.
+            </p>
+
+          </div>
+
+
+
+          <!-- =============================================
+               FORMULARIO
+               ============================================= -->
+
+          <form
+            id="confirmationForm"
+            class="confirmation-form"
+          >
+
+
+            <!-- ===========================================
+                 PASO 01
+                 =========================================== -->
+
+            <div class="form-section">
+
+              <div class="section-heading">
+
+                <div class="section-number">
+                  01
+                </div>
+
+                <div>
+
+                  <h3>
+                    Confirma tu participación
+                  </h3>
+
+                  <p>
+                    Confirma formalmente tu decisión de participar
+                    en el programa seleccionado.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <label class="checkbox-container">
+
+                <input
+                  type="checkbox"
+                  id="participationConfirmation"
+                  required
+                >
+
+                <span class="custom-checkbox"></span>
+
+                <span class="checkbox-text">
+
+                  Confirmo mi participación en el programa
+                  seleccionado y acepto continuar con el proceso
+                  de inscripción.
+
+                </span>
+
+              </label>
+
+            </div>
+
+
+
+            <!-- ===========================================
+                 PASO 02
+                 =========================================== -->
+
+            <div class="form-section">
+
+              <div class="section-heading">
+
+                <div class="section-number">
+                  02
+                </div>
+
+                <div>
+
+                  <h3>
+                    Adjunta tu comprobante de pago
+                  </h3>
+
+                  <p>
+                    Después de realizar el pago, adjunta el
+                    comprobante para su validación.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <label
+                for="paymentReceipt"
+                class="upload-area"
+              >
+
+                <input
+                  type="file"
+                  id="paymentReceipt"
+                  name="paymentReceipt"
+                  accept=".jpg,.jpeg,.png,.pdf"
+                  hidden
+                  required
+                >
+
+
+                <div class="upload-icon">
+                  ↑
+                </div>
+
+
+                <div class="upload-text">
+
+                  <strong>
+                    Seleccionar comprobante
+                  </strong>
+
+                  <span>
+                    JPG, PNG o PDF · Máximo 5 MB
+                  </span>
+
+                </div>
+
+              </label>
+
+
+              <div
+                id="paymentReceiptName"
+                class="selected-file"
+              >
+                Ningún archivo seleccionado
+              </div>
+
+            </div>
+
+
+
+            <!-- ===========================================
+                 PASO 03
+                 =========================================== -->
+
+            <div class="form-section">
+
+              <div class="section-heading">
+
+                <div class="section-number">
+                  03
+                </div>
+
+                <div>
+
+                  <h3>
+                    Sube tu foto profesional
+                  </h3>
+
+                  <p>
+                    Esta fotografía podrá ser utilizada para fines
+                    académicos e institucionales dentro de la
+                    comunidad EcoBit Excellence.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <label
+                for="professionalPhoto"
+                class="upload-area photo-upload"
+              >
+
+                <input
+                  type="file"
+                  id="professionalPhoto"
+                  name="professionalPhoto"
+                  accept=".jpg,.jpeg,.png"
+                  hidden
+                  required
+                >
+
+
+                <div class="upload-icon">
+                  ↑
+                </div>
+
+
+                <div class="upload-text">
+
+                  <strong>
+                    Seleccionar fotografía
+                  </strong>
+
+                  <span>
+                    JPG o PNG · Máximo 5 MB
+                  </span>
+
+                </div>
+
+              </label>
+
+
+              <div
+                id="professionalPhotoName"
+                class="selected-file"
+              >
+                Ningún archivo seleccionado
+              </div>
+
+            </div>
+
+
+
+            <!-- ===========================================
+                 PASO 04
+                 =========================================== -->
+
+            <div class="form-section">
+
+              <div class="section-heading">
+
+                <div class="section-number">
+                  04
+                </div>
+
+                <div>
+
+                  <h3>
+                    Cuéntanos sobre tu trayectoria
+                  </h3>
+
+                  <p>
+                    Escribe una breve reseña profesional sobre tu
+                    experiencia, formación o trabajo relacionado
+                    con tu trayectoria.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <textarea
+                id="biography"
+                name="biography"
+                class="biography-field"
+                placeholder="Escribe aquí una breve reseña sobre tu trayectoria profesional..."
+                required
+              ></textarea>
+
+            </div>
+
+
+
+            <!-- ===========================================
+                 INFORMACIÓN FINAL
+                 =========================================== -->
+
+            <div class="form-notice">
+
+              <div class="notice-icon">
+                i
+              </div>
+
+              <div>
+
+                <strong>
+                  Importante
+                </strong>
+
+                <p>
+                  Tu información será revisada por el equipo de
+                  EcoBit Excellence. La validación del pago y de
+                  los documentos permitirá completar oficialmente
+                  tu proceso de inscripción.
+                </p>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- ===========================================
+                 BOTÓN FINAL
+                 =========================================== -->
+
+            <button
+              type="submit"
+              id="submitConfirmation"
+              class="submit-button"
+            >
+
+              Confirmar y enviar información
+
+              <span>
+                →
+              </span>
+
+            </button>
+
+
+          </form>
+
+
+        </section>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ===================================================
+         ESTADO DE ÉXITO
+         =================================================== -->
+
+    <section
+      id="successState"
+      class="state-container success-state hidden"
+    >
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <span class="eyebrow">
+        INFORMACIÓN ENVIADA
+      </span>
+
+      <h1>
+        ¡Tu información fue registrada correctamente!
+      </h1>
+
+      <p>
+        Hemos recibido la confirmación de tu participación y la
+        documentación proporcionada. Nuestro equipo continuará
+        con la revisión de tu proceso de inscripción.
+      </p>
+
+
+      <div class="success-card">
+
+        <strong>
+          ¿Qué sigue ahora?
+        </strong>
+
+        <p>
+          Recibirás las siguientes indicaciones y novedades a
+          través de los canales oficiales de EcoBit Excellence.
+        </p>
+
+      </div>
+
+
+      <a
+        href="https://chat.whatsapp.com/BKxMxBVq8MGIRpz6i7xURI"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="whatsapp-button"
+      >
+
+        Unirme a la comunidad de WhatsApp
+
+        <span>
+          →
+        </span>
+
+      </a>
+
+
+      <a
+        href="https://www.ecobit.eco"
+        class="back-home"
+      >
+        Volver a EcoBit
+      </a>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- JAVASCRIPT -->
+
+  <script src="js/confirmar.js"></script>
+
+
+</body>
+
+</html>
