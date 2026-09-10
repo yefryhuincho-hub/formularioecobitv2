@@ -1,0 +1,1974 @@
+/* =========================================================
+   ECOBIT EXCELLENCE
+   PORTAL DE POSTULACIÓN
+   styles.css
+   ========================================================= */
+
+
+/* =========================================================
+   1. VARIABLES
+   ========================================================= */
+
+:root {
+
+  --bg-primary: #0b1320;
+  --bg-secondary: #111c2d;
+  --bg-card: rgba(20, 31, 47, 0.88);
+
+  --green: #24c8a5;
+  --green-light: #45dfbe;
+  --green-dark: #159b80;
+
+  --white: #ffffff;
+
+  --text-primary: #f5f7fa;
+  --text-secondary: #aeb8c5;
+  --text-muted: #718096;
+
+  --border: rgba(255, 255, 255, 0.10);
+  --border-light: rgba(255, 255, 255, 0.16);
+
+  --danger: #ff6b6b;
+
+  --shadow:
+    0 25px 80px rgba(0, 0, 0, 0.35);
+
+  --radius: 18px;
+  --radius-small: 10px;
+
+}
+
+
+/* =========================================================
+   2. RESET
+   ========================================================= */
+
+* {
+
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+
+}
+
+
+html {
+
+  scroll-behavior: smooth;
+
+}
+
+
+body {
+
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      #14243a 0%,
+      transparent 35%
+    ),
+    var(--bg-primary);
+
+  color: var(--text-primary);
+
+  font-family:
+    "Poppins",
+    sans-serif;
+
+  overflow-x: hidden;
+
+}
+
+
+button,
+input,
+select,
+textarea {
+
+  font: inherit;
+
+}
+
+
+button {
+
+  cursor: pointer;
+
+}
+
+
+a {
+
+  color: inherit;
+
+  text-decoration: none;
+
+}
+
+
+/* =========================================================
+   3. FONDO DECORATIVO
+   ========================================================= */
+
+.background-effects {
+
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  z-index: -1;
+
+}
+
+
+.glow {
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(100px);
+
+  opacity: 0.13;
+
+}
+
+
+.glow-one {
+
+  width: 450px;
+  height: 450px;
+
+  background: var(--green);
+
+  top: -180px;
+  left: -180px;
+
+}
+
+
+.glow-two {
+
+  width: 400px;
+  height: 400px;
+
+  background: #2b7fff;
+
+  bottom: -180px;
+  right: -150px;
+
+}
+
+
+/* =========================================================
+   4. ESTRUCTURA GENERAL
+   ========================================================= */
+
+.application-page {
+
+  width: 100%;
+
+  max-width: 1440px;
+
+  margin: 0 auto;
+
+  padding:
+    30px
+    50px
+    25px;
+
+}
+
+
+/* =========================================================
+   5. HEADER
+   ========================================================= */
+
+.application-header {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 25px;
+
+  padding-bottom: 35px;
+
+}
+
+
+.brand {
+
+  display: flex;
+
+  align-items: center;
+
+}
+
+
+.brand-logo {
+
+  width: auto;
+
+  height: 46px;
+
+  max-width: 190px;
+
+  object-fit: contain;
+
+}
+
+
+.header-info {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  color: var(--text-secondary);
+
+  font-size: 12px;
+
+  letter-spacing: 0.8px;
+
+  text-transform: uppercase;
+
+}
+
+
+.header-label {
+
+  color: var(--green);
+
+  font-weight: 600;
+
+}
+
+
+.header-divider {
+
+  width: 1px;
+
+  height: 18px;
+
+  background: var(--border-light);
+
+}
+
+
+.header-text {
+
+  color: var(--text-secondary);
+
+}
+
+
+/* =========================================================
+   6. CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+.application-container {
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(320px, 0.85fr)
+    minmax(500px, 1.15fr);
+
+  gap: 75px;
+
+  align-items: center;
+
+  min-height: calc(100vh - 150px);
+
+}
+
+
+/* =========================================================
+   7. PANEL INFORMATIVO
+   ========================================================= */
+
+.application-intro {
+
+  padding:
+    20px
+    10px
+    20px
+    0;
+
+}
+
+
+.eyebrow {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 22px;
+
+  color: var(--green);
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 2px;
+
+}
+
+
+.eyebrow-line {
+
+  width: 38px;
+
+  height: 2px;
+
+  background: var(--green);
+
+}
+
+
+.application-intro h1 {
+
+  max-width: 560px;
+
+  font-size: clamp(
+    38px,
+    4vw,
+    62px
+  );
+
+  line-height: 1.12;
+
+  font-weight: 600;
+
+  letter-spacing: -1.5px;
+
+}
+
+
+.application-intro h1 span {
+
+  display: block;
+
+  color: var(--green);
+
+}
+
+
+.intro-description {
+
+  max-width: 540px;
+
+  margin-top: 25px;
+
+  color: var(--text-secondary);
+
+  font-size: 16px;
+
+  line-height: 1.8;
+
+}
+
+
+.intro-description strong {
+
+  color: var(--white);
+
+  font-weight: 500;
+
+}
+
+
+/* =========================================================
+   8. PASOS INFORMATIVOS
+   ========================================================= */
+
+.intro-details {
+
+  margin-top: 48px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 28px;
+
+}
+
+
+.detail-item {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 18px;
+
+}
+
+
+.detail-number {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(36, 200, 165, 0.35);
+
+  color: var(--green);
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+}
+
+
+.detail-item h3 {
+
+  font-size: 15px;
+
+  font-weight: 500;
+
+  margin-bottom: 5px;
+
+}
+
+
+.detail-item p {
+
+  color: var(--text-muted);
+
+  font-size: 13px;
+
+  line-height: 1.7;
+
+  max-width: 390px;
+
+}
+
+
+.institutional-note {
+
+  margin-top: 55px;
+
+  max-width: 500px;
+
+}
+
+
+.note-line {
+
+  width: 100%;
+
+  height: 1px;
+
+  background: var(--border);
+
+  margin-bottom: 22px;
+
+}
+
+
+.institutional-note p {
+
+  color: var(--text-muted);
+
+  font-size: 12px;
+
+  line-height: 1.8;
+
+}
+
+
+/* =========================================================
+   9. TARJETA DEL FORMULARIO
+   ========================================================= */
+
+.application-card {
+
+  width: 100%;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(27, 41, 59, 0.96),
+      rgba(14, 24, 38, 0.96)
+    );
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+
+  overflow: hidden;
+
+}
+
+
+/* =========================================================
+   10. HEADER DEL FORMULARIO
+   ========================================================= */
+
+.form-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 25px;
+
+  padding:
+    38px
+    42px
+    28px;
+
+}
+
+
+.form-eyebrow {
+
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--green);
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 2px;
+
+}
+
+
+.form-header h2 {
+
+  font-size: 26px;
+
+  font-weight: 500;
+
+  letter-spacing: -0.5px;
+
+}
+
+
+.step-counter {
+
+  display: flex;
+
+  align-items: baseline;
+
+  gap: 6px;
+
+  color: var(--text-muted);
+
+  font-size: 14px;
+
+}
+
+
+.step-counter #currentStep {
+
+  color: var(--green);
+
+  font-size: 24px;
+
+  font-weight: 600;
+
+}
+
+
+.step-counter-divider {
+
+  color: var(--text-muted);
+
+}
+
+
+/* =========================================================
+   11. BARRA DE PROGRESO
+   ========================================================= */
+
+.progress-wrapper {
+
+  padding:
+    0
+    42px
+    30px;
+
+}
+
+
+.progress-track {
+
+  width: 100%;
+
+  height: 4px;
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+}
+
+
+.progress-bar {
+
+  width: 25%;
+
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--green-dark),
+      var(--green)
+    );
+
+  border-radius: inherit;
+
+  transition:
+    width
+    0.35s
+    ease;
+
+}
+
+
+.progress-labels {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  margin-top: 12px;
+
+}
+
+
+.progress-labels span {
+
+  color: var(--text-muted);
+
+  font-size: 10px;
+
+  text-align: center;
+
+}
+
+
+.progress-labels span:first-child {
+
+  text-align: left;
+
+}
+
+
+.progress-labels span:last-child {
+
+  text-align: right;
+
+}
+
+
+.progress-labels .active {
+
+  color: var(--green);
+
+}
+
+
+/* =========================================================
+   12. PASOS DEL FORMULARIO
+   ========================================================= */
+
+.form-step {
+
+  display: none;
+
+  padding:
+    10px
+    42px
+    40px;
+
+  animation:
+    fadeIn
+    0.35s
+    ease;
+
+}
+
+
+.form-step.active {
+
+  display: block;
+
+}
+
+
+@keyframes fadeIn {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(10px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0);
+
+  }
+
+}
+
+
+/* =========================================================
+   13. TÍTULOS DE PASO
+   ========================================================= */
+
+.step-title {
+
+  margin-bottom: 30px;
+
+}
+
+
+.step-label {
+
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--green);
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 1.8px;
+
+}
+
+
+.step-title h3 {
+
+  font-size: 23px;
+
+  font-weight: 500;
+
+  letter-spacing: -0.4px;
+
+}
+
+
+.step-title p {
+
+  margin-top: 7px;
+
+  color: var(--text-secondary);
+
+  font-size: 13px;
+
+  line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   14. GRID DEL FORMULARIO
+   ========================================================= */
+
+.form-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
+
+}
+
+
+.form-group {
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+
+.form-group-full {
+
+  grid-column: 1 / -1;
+
+}
+
+
+.form-group label {
+
+  margin-bottom: 8px;
+
+  color: var(--text-secondary);
+
+  font-size: 12px;
+
+  font-weight: 500;
+
+}
+
+
+.optional-label {
+
+  margin-left: 5px;
+
+  color: var(--text-muted);
+
+  font-weight: 400;
+
+}
+
+
+/* =========================================================
+   15. INPUTS
+   ========================================================= */
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+  width: 100%;
+
+  background:
+    rgba(255, 255, 255, 0.045);
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius: var(--radius-small);
+
+  outline: none;
+
+  color: var(--white);
+
+  font-size: 13px;
+
+  transition:
+    border
+    0.25s ease,
+    background
+    0.25s ease,
+    box-shadow
+    0.25s ease;
+
+}
+
+
+.form-group input,
+.form-group select {
+
+  height: 48px;
+
+  padding:
+    0
+    15px;
+
+}
+
+
+.form-group textarea {
+
+  min-height: 110px;
+
+  padding: 14px 15px;
+
+  resize: vertical;
+
+  line-height: 1.6;
+
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+
+  color: #687485;
+
+}
+
+
+.form-group select {
+
+  appearance: auto;
+
+}
+
+
+.form-group select option {
+
+  background: #142034;
+
+  color: var(--white);
+
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+  border-color:
+    rgba(36, 200, 165, 0.75);
+
+  background:
+    rgba(36, 200, 165, 0.04);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(36, 200, 165, 0.08);
+
+}
+
+
+/* =========================================================
+   16. AYUDA DE CAMPOS
+   ========================================================= */
+
+.field-help {
+
+  display: block;
+
+  margin-top: 8px;
+
+  color: var(--text-muted);
+
+  font-size: 10px;
+
+  line-height: 1.6;
+
+}
+
+
+/* =========================================================
+   17. CHECKBOX
+   ========================================================= */
+
+.checkbox-group {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 12px;
+
+  margin-top: 28px;
+
+  cursor: pointer;
+
+}
+
+
+.checkbox-group input {
+
+  position: absolute;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+}
+
+
+.checkbox-custom {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 20px;
+  height: 20px;
+
+  margin-top: 1px;
+
+  border:
+    1px solid
+    var(--border-light);
+
+  border-radius: 5px;
+
+  transition:
+    all
+    0.2s
+    ease;
+
+}
+
+
+.checkbox-group input:checked
++ .checkbox-custom {
+
+  background: var(--green);
+
+  border-color: var(--green);
+
+}
+
+
+.checkbox-group input:checked
++ .checkbox-custom::after {
+
+  content: "✓";
+
+  color: var(--bg-primary);
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+}
+
+
+.checkbox-text {
+
+  color: var(--text-muted);
+
+  font-size: 11px;
+
+  line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   18. NAVEGACIÓN DEL FORMULARIO
+   ========================================================= */
+
+.form-navigation {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-top: 38px;
+
+}
+
+
+/* =========================================================
+   19. BOTONES
+   ========================================================= */
+
+.btn {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  min-height: 48px;
+
+  padding:
+    0
+    22px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.7px;
+
+  transition:
+    transform
+    0.2s ease,
+    background
+    0.2s ease,
+    opacity
+    0.2s ease,
+    box-shadow
+    0.2s ease;
+
+}
+
+
+.btn:hover {
+
+  transform:
+    translateY(-2px);
+
+}
+
+
+.btn:active {
+
+  transform:
+    translateY(0);
+
+}
+
+
+.btn-primary {
+
+  background: var(--green);
+
+  color: #071510;
+
+  box-shadow:
+    0 8px 25px
+    rgba(36, 200, 165, 0.18);
+
+}
+
+
+.btn-primary:hover {
+
+  background: var(--green-light);
+
+}
+
+
+.btn-secondary {
+
+  background: transparent;
+
+  border:
+    1px solid
+    var(--border-light);
+
+  color: var(--text-secondary);
+
+}
+
+
+.btn-secondary:hover {
+
+  background:
+    rgba(255, 255, 255, 0.05);
+
+  color: var(--white);
+
+}
+
+
+.button-arrow {
+
+  font-size: 17px;
+
+  line-height: 1;
+
+}
+
+
+/* =========================================================
+   20. ESTADO DE CARGA
+   ========================================================= */
+
+.btn.loading {
+
+  pointer-events: none;
+
+  opacity: 0.75;
+
+}
+
+
+.btn.loading .button-text::after {
+
+  content: "...";
+
+}
+
+
+/* =========================================================
+   21. PANTALLA DE ÉXITO
+   ========================================================= */
+
+.success-screen {
+
+  display: none;
+
+  padding:
+    55px
+    42px;
+
+  text-align: center;
+
+  animation:
+    fadeIn
+    0.45s
+    ease;
+
+}
+
+
+.success-screen.active {
+
+  display: block;
+
+}
+
+
+.success-icon {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 72px;
+  height: 72px;
+
+  margin:
+    0
+    auto
+    22px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(36, 200, 165, 0.12);
+
+  border:
+    1px solid
+    rgba(36, 200, 165, 0.35);
+
+}
+
+
+.success-icon span {
+
+  color: var(--green);
+
+  font-size: 32px;
+
+}
+
+
+.success-label {
+
+  color: var(--green);
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 2px;
+
+}
+
+
+.success-screen h2 {
+
+  margin-top: 14px;
+
+  font-size: 30px;
+
+  font-weight: 500;
+
+}
+
+
+.success-screen > p {
+
+  max-width: 470px;
+
+  margin:
+    12px
+    auto;
+
+  color: var(--text-secondary);
+
+  font-size: 13px;
+
+  line-height: 1.8;
+
+}
+
+
+/* =========================================================
+   22. ID DE POSTULACIÓN
+   ========================================================= */
+
+.success-id {
+
+  margin:
+    28px
+    auto;
+
+  padding: 18px;
+
+  max-width: 400px;
+
+  background:
+    rgba(255, 255, 255, 0.04);
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius: var(--radius-small);
+
+}
+
+
+.success-id span {
+
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: var(--text-muted);
+
+  font-size: 9px;
+
+  letter-spacing: 1.5px;
+
+}
+
+
+.success-id strong {
+
+  color: var(--green);
+
+  font-size: 16px;
+
+  letter-spacing: 0.8px;
+
+}
+
+
+/* =========================================================
+   23. COMUNIDAD WHATSAPP
+   ========================================================= */
+
+.whatsapp-community {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  max-width: 500px;
+
+  margin:
+    30px
+    auto
+    20px;
+
+  padding: 20px;
+
+  text-align: left;
+
+  background:
+    rgba(36, 200, 165, 0.055);
+
+  border:
+    1px solid
+    rgba(36, 200, 165, 0.18);
+
+  border-radius: var(--radius-small);
+
+}
+
+
+.community-icon {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 45px;
+  height: 45px;
+
+  border-radius: 50%;
+
+  background: var(--green);
+
+  color: var(--bg-primary);
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+}
+
+
+.community-content h3 {
+
+  margin-bottom: 4px;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+}
+
+
+.community-content p {
+
+  color: var(--text-muted);
+
+  font-size: 11px;
+
+  line-height: 1.6;
+
+}
+
+
+.btn-whatsapp {
+
+  width: 100%;
+
+  max-width: 500px;
+
+  background: var(--green);
+
+  color: var(--bg-primary);
+
+}
+
+
+.success-footer {
+
+  margin-top: 25px !important;
+
+  color: var(--text-muted) !important;
+
+  font-size: 10px !important;
+
+}
+
+
+/* =========================================================
+   24. FOOTER
+   ========================================================= */
+
+.application-footer {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding-top: 40px;
+
+  color: var(--text-muted);
+
+  font-size: 10px;
+
+  text-align: center;
+
+}
+
+
+.footer-brand {
+
+  color: var(--text-secondary);
+
+  font-weight: 500;
+
+}
+
+
+.footer-eco {
+
+  color: var(--green);
+
+}
+
+
+.footer-separator {
+
+  color: var(--green);
+
+}
+
+
+/* =========================================================
+   25. ERRORES DE VALIDACIÓN
+   ========================================================= */
+
+.form-group.error input,
+.form-group.error select,
+.form-group.error textarea {
+
+  border-color:
+    rgba(255, 107, 107, 0.8);
+
+}
+
+
+.error-message {
+
+  margin-top: 6px;
+
+  color: var(--danger);
+
+  font-size: 10px;
+
+}
+
+
+/* =========================================================
+   26. TABLET
+   ========================================================= */
+
+@media (
+  max-width: 1100px
+) {
+
+  .application-page {
+
+    padding:
+      30px
+      35px;
+
+  }
+
+
+  .application-container {
+
+    gap: 45px;
+
+    grid-template-columns:
+      minmax(280px, 0.75fr)
+      minmax(450px, 1.25fr);
+
+  }
+
+
+  .application-intro h1 {
+
+    font-size: 45px;
+
+  }
+
+
+}
+
+
+/* =========================================================
+   27. MÓVIL Y TABLET VERTICAL
+   ========================================================= */
+
+@media (
+  max-width: 850px
+) {
+
+  .application-page {
+
+    padding:
+      22px
+      20px;
+
+  }
+
+
+  .application-header {
+
+    padding-bottom: 30px;
+
+  }
+
+
+  .header-info {
+
+    display: none;
+
+  }
+
+
+  .application-container {
+
+    display: block;
+
+    min-height: auto;
+
+  }
+
+
+  .application-intro {
+
+    padding:
+      20px
+      0
+      45px;
+
+  }
+
+
+  .application-intro h1 {
+
+    font-size: 42px;
+
+  }
+
+
+  .intro-details {
+
+    display: none;
+
+  }
+
+
+  .institutional-note {
+
+    display: none;
+
+  }
+
+
+}
+
+
+/* =========================================================
+   28. MÓVIL
+   ========================================================= */
+
+@media (
+  max-width: 600px
+) {
+
+  .application-page {
+
+    padding:
+      18px
+      14px
+      25px;
+
+  }
+
+
+  .brand-logo {
+
+    height: 38px;
+
+    max-width: 160px;
+
+  }
+
+
+  .application-intro {
+
+    padding:
+      20px
+      8px
+      35px;
+
+  }
+
+
+  .eyebrow {
+
+    margin-bottom: 16px;
+
+    font-size: 9px;
+
+  }
+
+
+  .application-intro h1 {
+
+    font-size: 34px;
+
+    letter-spacing: -1px;
+
+  }
+
+
+  .intro-description {
+
+    margin-top: 18px;
+
+    font-size: 13px;
+
+    line-height: 1.75;
+
+  }
+
+
+  .application-card {
+
+    border-radius: 14px;
+
+  }
+
+
+  .form-header {
+
+    padding:
+      28px
+      22px
+      22px;
+
+  }
+
+
+  .form-header h2 {
+
+    font-size: 21px;
+
+  }
+
+
+  .step-counter #currentStep {
+
+    font-size: 20px;
+
+  }
+
+
+  .progress-wrapper {
+
+    padding:
+      0
+      22px
+      25px;
+
+  }
+
+
+  .progress-labels {
+
+    gap: 4px;
+
+  }
+
+
+  .progress-labels span {
+
+    font-size: 8px;
+
+  }
+
+
+  .form-step {
+
+    padding:
+      8px
+      22px
+      30px;
+
+  }
+
+
+  .step-title {
+
+    margin-bottom: 24px;
+
+  }
+
+
+  .step-title h3 {
+
+    font-size: 20px;
+
+  }
+
+
+  .form-grid {
+
+    grid-template-columns: 1fr;
+
+    gap: 17px;
+
+  }
+
+
+  .form-group-full {
+
+    grid-column: auto;
+
+  }
+
+
+  .form-navigation {
+
+    margin-top: 30px;
+
+  }
+
+
+  .btn {
+
+    min-height: 48px;
+
+    padding:
+      0
+      18px;
+
+    font-size: 10px;
+
+  }
+
+
+  .success-screen {
+
+    padding:
+      42px
+      22px;
+
+  }
+
+
+  .success-screen h2 {
+
+    font-size: 25px;
+
+  }
+
+
+  .whatsapp-community {
+
+    padding: 16px;
+
+  }
+
+
+  .community-icon {
+
+    width: 40px;
+    height: 40px;
+
+  }
+
+
+  .application-footer {
+
+    flex-wrap: wrap;
+
+    padding:
+      30px
+      10px
+      0;
+
+    font-size: 9px;
+
+  }
+
+}
+
+
+/* =========================================================
+   29. MÓVILES MUY PEQUEÑOS
+   ========================================================= */
+
+@media (
+  max-width: 380px
+) {
+
+  .application-intro h1 {
+
+    font-size: 30px;
+
+  }
+
+
+  .form-header {
+
+    gap: 12px;
+
+  }
+
+
+  .form-header h2 {
+
+    font-size: 19px;
+
+  }
+
+
+  .progress-labels span {
+
+    font-size: 7px;
+
+  }
+
+
+  .form-navigation {
+
+    gap: 10px;
+
+  }
+
+
+  .btn {
+
+    padding:
+      0
+      14px;
+
+    font-size: 9px;
+
+  }
+
+}
