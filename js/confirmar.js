@@ -61,8 +61,6 @@ async function initializeConfirmationPage() {
 
   try {
 
-    /* Obtener ID desde la URL */
-
     const urlParams =
       new URLSearchParams(
         window.location.search
@@ -77,8 +75,6 @@ async function initializeConfirmationPage() {
         .toUpperCase();
 
 
-    /* Validar ID */
-
     if (!applicationId) {
 
       showError(
@@ -89,8 +85,6 @@ async function initializeConfirmationPage() {
 
     }
 
-
-    /* Consultar postulación */
 
     const response =
       await fetchApplication(
@@ -113,20 +107,14 @@ async function initializeConfirmationPage() {
     }
 
 
-    /* Guardar información */
-
     currentApplication =
       response.application;
 
-
-    /* Mostrar datos */
 
     populateApplicationData(
       currentApplication
     );
 
-
-    /* Mostrar contenido */
 
     hideElement(
       loadingState
@@ -189,8 +177,6 @@ async function fetchApplication(applicationId) {
 
 function populateApplicationData(application) {
 
-  /* Nombre */
-
   const participantName =
     application.nombres ||
     application.nombreCompleto ||
@@ -203,23 +189,17 @@ function populateApplicationData(application) {
   );
 
 
-  /* Programa */
-
   setText(
     "programName",
     application.programa || "—"
   );
 
 
-  /* Application ID */
-
   setText(
     "applicationId",
     application.applicationId || "—"
   );
 
-
-  /* Beca */
 
   setText(
     "scholarshipValue",
@@ -229,8 +209,6 @@ function populateApplicationData(application) {
   );
 
 
-  /* Valor académico */
-
   setText(
     "academicValue",
     formatCurrency(
@@ -238,8 +216,6 @@ function populateApplicationData(application) {
     )
   );
 
-
-  /* Derechos administrativos */
 
   setText(
     "administrativeValue",
@@ -249,8 +225,6 @@ function populateApplicationData(application) {
   );
 
 
-  /* Total */
-
   setText(
     "totalValue",
     formatCurrency(
@@ -258,8 +232,6 @@ function populateApplicationData(application) {
     )
   );
 
-
-  /* Link de pago */
 
   const paymentLink =
     document.getElementById(
@@ -303,16 +275,12 @@ function formatScholarship(value) {
 
   if (!isNaN(number)) {
 
-    /* 1 = 100 % */
-
     if (number === 1) {
 
       return "Beca del 100 %";
 
     }
 
-
-    /* 0.8 = 80 % */
 
     if (number === 0.8) {
 
@@ -321,8 +289,6 @@ function formatScholarship(value) {
     }
 
 
-    /* 0.5 = 50 % */
-
     if (number === 0.5) {
 
       return "Beca del 50 %";
@@ -330,18 +296,12 @@ function formatScholarship(value) {
     }
 
 
-    /* 0 = sin beca */
-
     if (number === 0) {
 
       return "Sin beca";
 
     }
 
-
-    /*
-       Si se recibe otro formato numérico
-    */
 
     if (number > 0 && number <= 1) {
 
@@ -472,8 +432,6 @@ document
 
       try {
 
-        /* Validar postulación */
-
         if (!currentApplication) {
 
           throw new Error(
@@ -482,8 +440,6 @@ document
 
         }
 
-
-        /* Obtener elementos */
 
         const confirmationCheckbox =
           document.getElementById(
@@ -510,11 +466,11 @@ document
           .trim();
 
 
-        /* Validar */
+        /* =================================================
+           VALIDACIONES
+           ================================================= */
 
-        if (
-          !confirmationCheckbox.checked
-        ) {
+        if (!confirmationCheckbox.checked) {
 
           alert(
             "Debes confirmar tu participación."
@@ -559,22 +515,14 @@ document
 
 
         /* =================================================
-           VALIDAR TAMAÑO DE ARCHIVOS
-
-           Apps Script tiene límites de tamaño.
-
-           Máximo recomendado:
-           5 MB por archivo.
+           VALIDAR TAMAÑO
            ================================================= */
 
         const maxFileSize =
           5 * 1024 * 1024;
 
 
-        if (
-          paymentReceipt.size >
-          maxFileSize
-        ) {
+        if (paymentReceipt.size > maxFileSize) {
 
           alert(
             "El comprobante no debe superar los 5 MB."
@@ -585,10 +533,7 @@ document
         }
 
 
-        if (
-          professionalPhoto.size >
-          maxFileSize
-        ) {
+        if (professionalPhoto.size > maxFileSize) {
 
           alert(
             "La foto no debe superar los 5 MB."
@@ -618,16 +563,20 @@ document
 
 
         /* =================================================
-           CONVERTIR ARCHIVOS
+           CONVERTIR COMPROBANTE
            ================================================= */
 
-        const comprobanteFile =
+        const receiptFile =
           await convertFileToBase64(
             paymentReceipt
           );
 
 
-        const fotoFile =
+        /* =================================================
+           CONVERTIR FOTO
+           ================================================= */
+
+        const photoFile =
           await convertFileToBase64(
             professionalPhoto
           );
@@ -639,23 +588,64 @@ document
 
         const payload = {
 
+          /* Acción */
+
           action:
             "confirmation",
+
+
+          /* Identificación */
 
           applicationId:
             currentApplication.applicationId,
 
-          confirmacion:
+
+          email:
+            currentApplication.email || "",
+
+
+          /* Confirmación */
+
+          confirmation:
             "CONFIRMADA",
 
-          resenaBiografica:
+
+          /* Reseña */
+
+          biography:
             biography,
 
-          comprobanteFile:
-            comprobanteFile,
 
-          fotoFile:
-            fotoFile
+          /* ===============================================
+             FOTO PROFESIONAL
+             =============================================== */
+
+          photoBase64:
+            photoFile.base64,
+
+
+          photoFileName:
+            photoFile.name,
+
+
+          photoMimeType:
+            photoFile.mimeType,
+
+
+          /* ===============================================
+             COMPROBANTE DE PAGO
+             =============================================== */
+
+          receiptBase64:
+            receiptFile.base64,
+
+
+          receiptFileName:
+            receiptFile.name,
+
+
+          receiptMimeType:
+            receiptFile.mimeType
 
         };
 
@@ -706,7 +696,7 @@ document
           throw new Error(
             result.message ||
             "No fue posible registrar la información."
-          );
+        );
 
         }
 
@@ -795,7 +785,8 @@ function convertFileToBase64(file) {
               file.name,
 
             mimeType:
-              file.type,
+              file.type ||
+              "application/octet-stream",
 
             base64:
               reader.result
